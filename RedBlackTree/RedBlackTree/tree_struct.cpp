@@ -2,27 +2,26 @@
 #include<stdlib.h>
 #include"tree_struct.h"
 
-void RBInsertFixup(RBnode* root, RBnode* nodez);
-void RBDeleteFixup(RBnode* root, RBnode* nodex);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //这里的指针更改都是要成对出现的，改完孩子节点的指向，要记得更改孩子节点的父指针指向。
 //在左旋时，x在y的左上方。
-void LeftRotate(RBnode* root, RBnode* nodex)
+void LeftRotate(RBnode** root, RBnode* nodex)
 {
-	if (nodex->right != NULL)
+	if (nodex->right != nil)
 	{
 		//step1
 		RBnode *nodey = nodex->right;
 
 		//step2
 		nodex->right = nodey->left;
-		nodey->left->parent = nodex;
+		if (nodex->left != nil)
+			nodey->left->parent = nodex;
 
 		//step3
 		nodey->parent = nodex->parent;
-		if (nodex->parent == NULL)		//x is root
+		if (nodex->parent == nil)		//x is root
 		{
-			root = nodey;
+			*root = nodey;
 		}
 		else if (nodex == (nodex->parent)->left)
 		{
@@ -46,22 +45,23 @@ void LeftRotate(RBnode* root, RBnode* nodex)
 
 
 //右旋时，y在x的右上方，见PPT14。
-void RightRotate(RBnode* root, RBnode* nodey)
+void RightRotate(RBnode** root, RBnode* nodey)
 {
-	if (nodey->left != NULL)
+	if (nodey->left != nil)
 	{
 		//step1
 		RBnode* nodex = nodey->left;
 
 		//step2
 		nodey->left = nodex->right;
-		nodex->right->parent = nodey;
+		if (nodex->right != nil)
+			nodex->right->parent = nodey;
 
 		//step3
 		nodex->parent = nodey->parent;
-		if (nodey->parent == NULL)
+		if (nodey->parent == nil)
 		{
-			root = nodex;
+			*root = nodex;
 		}
 		else if (nodey->parent == nodey->parent->left)
 		{
@@ -92,12 +92,12 @@ void RightRotate(RBnode* root, RBnode* nodey)
 //step3：调整使其满足红黑树性质
 
 //插入时你自己考虑一下什么时候创建节点并分配内存单元
-void RBInsert(RBnode* root, RBnode* nodez)
+void RBInsert(RBnode** root, RBnode* nodez)
 {
-	RBnode* nodey = NULL;		//y用于记录：当前扫描节点的父节点
-	RBnode* nodex = root;		//从root开始扫描
+	RBnode* nodey = nil;		//y用于记录：当前扫描节点的父节点
+	RBnode* nodex = *root;		//从root开始扫描
 
-	while (nodex != NULL)		//查找插入位置
+	while (nodex != nil)		//查找插入位置
 	{
 		nodey = nodex;
 		if (nodez->key < nodex->key)
@@ -107,8 +107,8 @@ void RBInsert(RBnode* root, RBnode* nodez)
 	}
 
 	nodez->parent = nodey;		//y是z的父节点
-	if (nodey == NULL)			//z是根
-		root = nodez;	
+	if (nodey == nil)			//z是根
+		*root = nodez;	
 	else
 	{
 		if (nodez->key < nodey->key)	//左子插入
@@ -117,8 +117,8 @@ void RBInsert(RBnode* root, RBnode* nodez)
 			nodey->right = nodez;
 	}
 
-	nodez->left = NULL;
-	nodez->right = NULL;
+	nodez->left = nil;
+	nodez->right = nil;
 	nodez->color = RED;
 
 	RBInsertFixup(root, nodez);
@@ -126,22 +126,24 @@ void RBInsert(RBnode* root, RBnode* nodez)
 
 
 //插入调整算法
-void RBInsertFixup(RBnode* root, RBnode* nodez)
+void RBInsertFixup(RBnode** root, RBnode* nodez)
 {
-	if (root == nodez)		//nodez为根节点，直接涂黑
+	while (1)
 	{
-		nodez->color = BLACK;
-	}
-	else if (nodez->parent->color == BLACK)
-	{ 
-		//若父节点为黑，无需调整
-	}
-	else
-	{
-		while (nodez->parent->color == RED)
+		if (*root == nodez)		//nodez为根节点，直接涂黑
+		{
+			nodez->color = BLACK;
+			break;
+		}
+		else if ((nodez->parent->color) == BLACK)
+		{
+			//若父节点为黑，无需调整
+			break;
+		}
+		else
 		{
 			//父节点为红，违反性质4
-			if (nodez->parent = ((nodez->parent)->parent)->left)		//case1,2,3
+			if (nodez->parent == ((nodez->parent)->parent)->left)		//case1,2,3
 			{
 				RBnode* nodey = ((nodez->parent)->parent)->right;		//y是z的叔叔
 				if (nodey->color == RED)			//case1
@@ -190,6 +192,7 @@ void RBInsertFixup(RBnode* root, RBnode* nodez)
 			}
 		}
 	}
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,7 +201,7 @@ void RBInsertFixup(RBnode* root, RBnode* nodez)
 RBnode* TreeSuccessor(RBnode* root)
 {
 	RBnode* leftfirst = root;
-	while (leftfirst->left != NULL)
+	while (leftfirst->left != nil)
 	{
 		leftfirst = leftfirst->left;
 	}
@@ -207,24 +210,24 @@ RBnode* TreeSuccessor(RBnode* root)
 
 
 //删除算法
-RBnode* RBDelete(RBnode* root, RBnode* nodez)
+RBnode* RBDelete(RBnode** root, RBnode* nodez)
 {
-	RBnode *nodex = NULL, *nodey = NULL;			//x是连接点，y是真正物理删除节点，z是指向删除
-	if (nodez->left == NULL || nodez->right == NULL)	//case1,2
+	RBnode *nodex = nil, *nodey = nil;			//x是连接点，y是真正物理删除节点，z是指向删除
+	if (nodez->left == nil || nodez->right == nil)	//case1,2
 		nodey = nodez;
 	else												//case3
 		nodey = TreeSuccessor(nodez);		//y是z的中序后继
 	//此时，y统一地是x的父节点且是要删除的节点
 	//x是待连接到y->parent的节点，一下要确定x
-	if (nodey->left != NULL)
+	if (nodey->left != nil)
 		nodex = nodey->left;
 	else
 		nodex = nodey->right;
 
 	//一下处理：用x取代y与y的双亲连接
 	nodex->parent = nodey->parent;
-	if (nodey->parent == NULL)
-		root = nodex;
+	if (nodey->parent == nil)
+		*root = nodex;
 	else
 	{
 		if (nodey == nodey->parent->left)
@@ -235,7 +238,7 @@ RBnode* RBDelete(RBnode* root, RBnode* nodez)
 	if (nodey != nodez)
 		nodez->key = nodey->key;
 	if (nodey->color == BLACK)	//如果删除的节点是红色节点，则无需调整
-		RBDeleteFixup(root, nodex);
+		RBDeleteFixup(*root, nodex);
 	return nodey;
 }
 
