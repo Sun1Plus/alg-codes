@@ -298,16 +298,53 @@ void  RBDeleteFixup(RBnode** root, RBnode* nodex)
 						LeftRotate(root, nodex->parent);
 
 						break;
-					}
-				}
-			}
+					}//end case3,4
+				}//end if (nodew->color == RED);else
+			}//end if (nodex == nodex->parent->left)
 
 			else									//case5,6,7,8
 			{
+				RBnode* nodew = nodex->parent->left;	//w是x的兄弟节点
+				if (nodew->color == RED)			//case5
+				{
+					nodew->color = BLACK;
+					nodex->parent->color = RED;
+					RightRotate(root, nodex->parent);
+				}
+				else								//case6,7,8
+				{
+					if (nodew->left->color == BLACK && nodew->right->color == BLACK)	//case6
+					{
+						nodew->color = RED;
+						nodex = nodex->parent;
+					}
+					else
+					{
+						if (nodew->left->color == BLACK)		//case7转化成case8
+						{
+							nodew->right->color = BLACK;
+							nodew->color = RED;
+							LeftRotate(root, nodew);
+							nodew = nodex->parent->left;
+						}
+						//throw problem
+						if (nodew->left->color != RED)
+						{
+							printf("删除时case3转化case4出问题");
+							system("pause");
+						}
+						//case8
+						nodew->color = nodex->parent->color;
+						nodex->parent->color = BLACK;
+						nodew->left->color = BLACK;
+						RightRotate(root, nodex->parent);
 
-			}
-		}
-	}
+						break;
+					}//end if (nodew->left->color == BLACK && nodew->right->color == BLACK);else
+				}//end if (nodew->color == RED);else
+			}//end if (nodex == nodex->parent->left);else 
+		}//end if (nodex == *root);else if (nodex->color == RED);else
+	}//end while(1)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
