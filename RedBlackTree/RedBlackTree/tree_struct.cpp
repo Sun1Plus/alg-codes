@@ -210,6 +210,7 @@ RBnode* TreeSuccessor(RBnode* root)
 
 
 //删除算法
+//记得删除后，将返回的指针释放内存。
 RBnode* RBDelete(RBnode** root, RBnode* nodez)
 {
 	RBnode *nodex = nil, *nodey = nil;			//x是连接点，y是真正物理删除节点，z是指向删除
@@ -243,17 +244,70 @@ RBnode* RBDelete(RBnode** root, RBnode* nodez)
 }
 
 //删除调整
-void  RBDeleteFixup(RBnode* root, RBnode* nodex)
+//仔细考虑特殊临界情况，比如nil的父指针，函数传值修改无效等。
+void  RBDeleteFixup(RBnode** root, RBnode* nodex)
 {
-	if (root == nodex)				//x是根节点，直接移去一层黑色，空操作
-		;
-	else if (nodex->color == RED)	//x节点为红，涂黑即终止
-		nodex->color = BLACK;
-	else							//x节点非根，且为黑色，则通过变色、旋转解决问题。
+	while (1)		//x始终作为矛盾的存在。
 	{
+		if (nodex == *root)				//x是根节点，直接移去一层黑色，空操作
+			break;
+		else if (nodex->color == RED)	//x节点为红，涂黑即终止
+		{
+			nodex->color = BLACK;
+			break;
+		}
+		else							//x节点非根，且为黑色，则通过变色、旋转解决问题。
+		{								//x是双黑节点。
+			if (nodex == nodex->parent->left)		//case1,2,3,4
+			{
+				RBnode* nodew = nodex->parent->right;	//w是x的兄弟节点
+				if (nodew->color == RED)			//case1
+				{
+					nodew->color = BLACK;
+					nodex->parent->color = RED;
+					LeftRotate(root, nodex->parent);
+					//这里的w节点不用赋值，while结束它自动消失，在下一次循环自动指到兄弟节点
+				}
+				else								//case2,3,4,兄弟节点w是黑
+				{
+					if (nodew->left->color == BLACK && nodew->right->color == BLACK)	//case2
+					{
+						nodew->color = RED;
+						nodex = nodex->parent;
+					}
+					else
+					{
+						if (nodew->right->color == BLACK)	//case3转化成case4处理
+						{
+							nodew->left->color = BLACK;
+							nodew->color = RED;
+							RightRotate(root, nodew);
+							nodew = nodex->parent->right;	//w指向新的兄弟
+						}
+						//throw problem
+						if (nodew->right->color != RED)		
+						{
+							printf("删除时case3转化case4出问题");
+							system("pause");
+						}
+						//case4
+						//这里小心nil的父指针，肯定会报错。
+						nodew->color = nodex->parent->color;
+						nodex->parent->color = BLACK;
+						nodew->right->color = BLACK;
+						LeftRotate(root, nodex->parent);
 
+						break;
+					}
+				}
+			}
+
+			else									//case5,6,7,8
+			{
+
+			}
+		}
 	}
-
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
