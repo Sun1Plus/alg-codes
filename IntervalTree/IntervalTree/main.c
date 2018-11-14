@@ -38,6 +38,7 @@ IBnode* IntervalSearch(IBnode* root, int low, int high)
 	IBnode* x = root;
 	while (x != nil && IsOverride(low, high, x->int_low, x->int_high) == 0)
 	{
+		printf("当前节点区间：%d - %d，未重叠\n", x->int_low, x->int_high);
 		if (x->left != nil && x->left->max >= low)
 			x = x->left;
 		else
@@ -74,7 +75,18 @@ int main()
 	InsertKey(&root, 23, 24);
 	InsertKey(&root, 8, 9);
 
-	IBnode* result = IntervalSearch(root, 0, 1);
-	int a = 0;
+	IBnode* result = IntervalSearch(root, 46, 47);
 
+	if (result != nil)
+	{
+		printf("找到的重叠区间： ");
+		printf("%d - %d\n", result->int_low, result->int_high);
+	}
+	else
+	{
+		printf("未找到重叠区间\n");
+	}
+
+	system("pause");
+	return 0;
 }
