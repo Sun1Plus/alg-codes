@@ -21,7 +21,6 @@ void RightRotate(RBnode** root, RBnode* nodey);
 void RBInsert(RBnode** root, RBnode* nodez);
 void RBInsertFixup(RBnode** root, RBnode* nodez);
 RBnode* RBDelete(RBnode** root, RBnode* nodez);
-void RBDeleteFixup(RBnode* root, RBnode* nodex);
-
+void RBDeleteFixup(RBnode** root, RBnode* nodex);
 
 #endif

@@ -75,7 +75,7 @@ int main()
 	InsertKey(&root, 23, 24);
 	InsertKey(&root, 8, 9);
 
-	IBnode* result = IntervalSearch(root, 46, 47);
+	IBnode* result = IntervalSearch(root,11,12 );
 
 	if (result != nil)
 	{

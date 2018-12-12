@@ -45,8 +45,14 @@ int main()
 	InsertKey(&root, 6);
 	InsertKey(&root, 9);
 	InsertKey(&root, 1);
+	InsertKey(&root, 11);
+	InsertKey(&root, 19);
+	InsertKey(&root, 13);
+	InsertKey(&root, 7);
+	InsertKey(&root, 23);
+	InsertKey(&root, 8);
 	print_tree(root);
 
 	system("pause");
-	return 0;
+	return 0; 
 }

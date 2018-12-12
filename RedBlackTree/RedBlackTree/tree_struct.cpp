@@ -239,7 +239,7 @@ RBnode* RBDelete(RBnode** root, RBnode* nodez)
 	if (nodey != nodez)
 		nodez->key = nodey->key;
 	if (nodey->color == BLACK)	//如果删除的节点是红色节点，则无需调整
-		RBDeleteFixup(*root, nodex);
+		RBDeleteFixup(root, nodex);
 	return nodey;
 }
 
