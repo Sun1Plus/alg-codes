@@ -57,38 +57,6 @@ void print(Node * root, string prefixs)
 	}
 }
 
-//int main()
-//{
-//	vector<Node> nodevec = { Node('a', 45), Node('b', 13), Node('c', 12), Node('d', 16), Node('e', 9), Node('f', 5) };
-//
-//	Node * root = NULL;
-//
-//	while (nodevec.size() != 1)
-//	{
-//		sort(nodevec.begin(), nodevec.end(), comp);
-//
-//		Node *a = new Node(nodevec[0]);
-//		Node *b = new Node(nodevec[1]);
-//
-//		//É¾³ýÇ°Á½¸ö
-//		nodevec.erase(nodevec.begin());
-//		nodevec.erase(nodevec.begin());
-//
-//		Node * parent = new Node();
-//		parent->fre = a->fre + b->fre;
-//		parent->ch = ' ';
-//		parent->left = a;
-//		parent->right = b;
-//
-//		nodevec.push_back(*parent);
-//		root = parent;
-//	}
-//	print(root, "");
-//
-//	system("pause");
-//	return 0;
-//}
-
 int main()
 {
 	vector<Node> nodevec = { Node('a', 45), Node('b', 13), Node('c', 12), Node('d', 16), Node('e', 9), Node('f', 1) };
