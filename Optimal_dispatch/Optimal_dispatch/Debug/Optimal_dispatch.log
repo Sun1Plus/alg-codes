@@ -1,13 +1,13 @@
-﻿Build started 2018/12/26 0:25:19.
-     1>Project "E:\alg-codes\Optimal_dispatch\Optimal_dispatch\Optimal_dispatch.vcxproj" on node 2 (Build target(s)).
+﻿生成启动时间为 2019/1/4 12:47:42。
+     1>项目“C:\Users\johnsun\Desktop\USTC-courses\alg-codes\Optimal_dispatch\Optimal_dispatch\Optimal_dispatch.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\VS2013\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt mian.cpp
+         E:\VS2013\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt mian.cpp
          mian.cpp
        Link:
-         D:\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.lib" /MACHINE:X86 Debug\mian.obj
-         Optimal_dispatch.vcxproj -> E:\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.exe
-     1>Done Building Project "E:\alg-codes\Optimal_dispatch\Optimal_dispatch\Optimal_dispatch.vcxproj" (Build target(s)).
+         E:\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\johnsun\Desktop\USTC-courses\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\johnsun\Desktop\USTC-courses\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\johnsun\Desktop\USTC-courses\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.lib" /MACHINE:X86 Debug\mian.obj
+         Optimal_dispatch.vcxproj -> C:\Users\johnsun\Desktop\USTC-courses\alg-codes\Optimal_dispatch\Debug\Optimal_dispatch.exe
+     1>已完成生成项目“C:\Users\johnsun\Desktop\USTC-courses\alg-codes\Optimal_dispatch\Optimal_dispatch\Optimal_dispatch.vcxproj”(Build 个目标)的操作。
 
-Build succeeded.
+生成成功。
 
-Time Elapsed 00:00:00.66
+已用时间 00:00:06.45
